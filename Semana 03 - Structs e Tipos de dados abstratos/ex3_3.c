@@ -4,84 +4,124 @@
 typedef struct {
     int nrConta;
     float saldoConta;
-} Conta;
+} CONTA;
 
-void criaConta(int nr_conta, Conta *conta);
+void criaConta(int nr_conta, CONTA *pconta);
 
-void retiraDaConta(Conta *conta, float saque);
+void retiraDaConta(float saque, CONTA *pconta);
 
-void depositaNaConta(Conta *conta, float deposito);
+void depositaNaConta(float deposito, CONTA *pconta);
 
-float obtemSaldo(Conta conta);
+float obtemSaldo(CONTA conta);
 
 int main() {
-    
-    Conta conta_cor, conta_poup;
-    int op;
-    float deposito;
 
+    CONTA conta_corr, conta_poup;
+    int op;
+    float deposito, saque, emprestimo, saquepoupemprestimo;
+
+    printf("Bem vindo, sr. Silva!\n\n");
+
+    printf("Crie sua CONTA CORRENTE adicionando um numero para ela:\n");
+    scanf("%d", &conta_corr.nrConta);
+
+    criaConta(conta_corr.nrConta, &conta_corr);
+
+    printf("Adicione o saldo inicial para sua CONTA CORRENTE:\n");
+    scanf("%f", &conta_corr.saldoConta);
+
+    printf("Crie sua CONTA POUPANCA adicionando um numero para ela:\n");
+    scanf("%d", &conta_poup.nrConta);
+
+    criaConta(conta_poup.nrConta, &conta_poup);
+
+    printf("Adicione o saldo inicial para sua CONTA POUPANCA:\n");
+    scanf("%f", &conta_poup.saldoConta);
+    
     do {
 
-        printf("Digite o numero da conta corrente:\n");
-        scanf("%d", &conta_cor.nrConta);
-        printf("Digite o saldo da conta corrente:\n");
-        scanf("%f", &conta_cor.saldoConta);
-
-        depositaNaConta(&conta_cor.nrConta, deposito);
-
-        criaConta(conta_cor.nrConta, &conta_cor);
-        
-        printf("Digite o numero da conta poupanca:\n");
-        scanf("%d", &conta_poup.nrConta);
-        printf("Digite o saldo da conta poupanca:\n");
-        scanf("%f", &conta_poup.saldoConta);
-
-        criaConta(conta_poup.nrConta, &conta_poup);
-
-        printf("Escolha a opcao desejada:\n(1).Deposito conta corrente.\n(2).Deposito conta poupanca.\n(3).Retirada conta corrente.\n(4).Retirada conta poupanca.\n(5).Fim\n");
+        printf("\nEscolha a opcao desejada:\n(1).Deposito conta corrente.\n(2).Deposito conta poupanca.\n(3).Retirada conta corrente.\n(4).Retirada conta poupanca.\n(5).Fim\n");
         scanf("%d", &op);
-        
-        if (op == 1) {
-            printf("Digite o valor do deposito:\n");
-            scanf("%f", &deposito);
-            depositaNaConta(&conta_cor.nrConta, deposito);
-        }
-        
-        printf("%.2f", conta_cor.saldoConta);
+
+        if (op != 5) {
+
+            if (op == 1) {
+                printf("Deposito na CONTA CORRENTE:\n");
+                printf("Digite a quantidade do deposito:\n");
+                scanf("%f", &deposito);
+                depositaNaConta(deposito, &conta_corr);
+            }
+
+            if (op == 2) {
+                printf("Deposito na CONTA POUPANCA:\n");
+                printf("Digite a quantidade do deposito:\n");
+                scanf("%f", &deposito);
+                depositaNaConta(deposito, &conta_poup);
+            }
+
+            if (op == 3) {
+                printf("Retirada na CONTA CORRENTE:\n");
+                printf("Digite a quantidade do saque:\n");
+                scanf("%f", &saque);
+                
+                if (conta_corr.saldoConta < saque) {
+                    if (conta_poup.saldoConta >= (conta_corr.saldoConta - saque)) {
+                        saquepoupemprestimo = saque - conta_corr.saldoConta;
+                        retiraDaConta(saquepoupemprestimo, &conta_poup);
+                        conta_corr.saldoConta = 0;
+                        //conta_corr.saldoConta = conta_corr.saldoConta + saquepoupemprestimo;
+                    } else {
+                        printf("\n==SALDO INSUFICIENTE!!!==\n");
+                    }
+                } else {
+                    retiraDaConta(saque, &conta_corr);
+                }
+            }
+
+            if (op == 4) {
+                printf("Retirada na CONTA POUPANCA:\n");
+                printf("Digite a quantidade do saque:\n");
+                scanf("%f", &saque);
+                retiraDaConta(saque, &conta_poup);
+            }
+
+            printf("\n==========================================\n");
+            printf("SALDO ATUALIZADO:\n\n");
+            printf("Saldo da conta corrente = R$ %.2f\n", conta_corr.saldoConta);
+            printf("Saldo da conta poupanca = R$ %.2f\n", conta_poup.saldoConta);
+            printf("==========================================\n\n");
+        }   
 
     } while (op != 5);
 
-}
-
-void criaConta(int nr_conta, Conta *conta) {
-
-    conta->nrConta = nr_conta;
-    conta->saldoConta = 0;
+    printf("\n===Programa encerrado!===\n");
 
 }
 
-/*
-void criaConta(Conta nr_conta, Conta *conta) {
+void criaConta(int nr_conta, CONTA *pconta) {
 
-    *conta->nrConta = nr_conta;
-    *conta->saldoConta = 0;
-
-} */
-/*
-void retiraDaConta(Conta *conta, float saque) {
-
-    *conta = *conta->saldoConta - saque;
-
-} */
-
-void depositaNaConta(Conta *conta, float deposito){
-
-    conta->saldoConta = conta->saldoConta + deposito;
+    pconta->nrConta = nr_conta;
+    pconta->saldoConta = 0;
 
 } 
-/*
-float obtemSaldo(Conta conta) {
+
+float obtemSaldo(CONTA conta) {
 
     return conta.saldoConta;
 
-} */
+}
+
+void depositaNaConta(float deposito, CONTA *pconta){
+
+    pconta->saldoConta = pconta->saldoConta + deposito;
+
+} 
+
+void retiraDaConta(float saque, CONTA *pconta) {
+    
+    if (pconta->saldoConta >= saque) {
+        pconta->saldoConta = pconta->saldoConta - saque;
+    } else {
+        printf("\n==SALDO INSUFICIENTE!!!==\n");
+    }
+} 
