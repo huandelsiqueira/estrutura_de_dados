@@ -1,4 +1,5 @@
 #include "Cheque.h"
+#include <stdio.h>
 
 void criaCheque(int nr_cheque, CHEQUE *cheque) {
 	
@@ -22,8 +23,7 @@ int obtemNumero(CHEQUE cheque) {
 
 void exibeCheque(CHEQUE cheque) {
 	
-	printf("== Numero do cheque: %d | Valor: R$ %.2f | Situacao: %d ==\n ", cheque.nr_cheque, cheque.valor, cheque.situacao);
-	return 0;
+	printf("Numero do cheque: %d | Valor: R$ %.2f | Situacao: %d\n", cheque.nr_cheque, cheque.valor, cheque.situacao);
 	
 }
 
@@ -46,7 +46,7 @@ int compensaCheque(CHEQUE *cheque) {
 
 int emiteCheque(float valor, CHEQUE *cheque) {
 	
-	if (cheque->situacao == 0) {
+	if (cheque->valor > 0) {
 		cheque->valor = valor;
 		cheque->situacao = 1;
 		return 0;
