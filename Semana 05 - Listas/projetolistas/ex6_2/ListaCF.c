@@ -104,37 +104,43 @@ int incluiAntes(ListaCF *lt, Dado dado, int codref) {
 		return LISTA_VAZIA;
 	} else if (lt->n == MAX_NODOS) {
 		return LISTA_CHEIA;
-	} else if (lt->n > 0 && lt->n < MAX_NODOS) {
-		int i;
-		if (codref == lt->v[codref-1].cod) {
-			for (i = lt->n; i >= codref; i--) {
-				lt->v[i] = lt->v[i-1];
+	} else {
+		int i, j, flag = 0;
+		for (i = 0; i <= lt->n; i++) {
+			if (lt->v[i].cod == codref) {
+				for (j = lt->n; j >= i; j--) {
+					lt->v[j+1] = lt->v[j];
+				}
+				lt->v[i] = dado;
+				lt->n++;
+				flag = 1;
+				break;
 			}
-			lt->v[codref-1] = dado;
-			lt->n++;
+		}
+		if (flag == 1) {
 			return SUCESSO;
+		} else {
+			return CODIGO_INEXISTENTE;
 		}
 	}
 }
 
 int excluiNodo(ListaCF *lt, int cod, Dado *d) {
-	if (lt->n == 0) {
-		return LISTA_VAZIA;
-	} else {
-		int i, j;
-		for (j = 1; j <= lt->n; j++) {
-			if (lt->v[j].cod == cod) {
-				*d = lt->v[cod];
-				for (i = cod; i < lt->n; i++) {
-					lt->v[i-1] = lt->v[i];
-				}
+	int i, j, flag = 0;
+	for (i = 0; i < lt->n; i++) {
+		if (lt->v[i].cod == cod) {
+			*d = lt->v[i];
+			for (j = i+1; j <= lt->n; j++) {
+				lt->v[j-1] = lt->v[j];
+			}
+			flag = 1;
 			lt->n--;
-			} else if (lt->v[i+1].cod == cod) {
-				*d = lt->v[cod];
-				for (i = cod; i < lt->n; i++) {
-					lt->v[i-1] = lt->v[i];
-				}
-			} 
+			break;
 		}
-	}	
+	}
+	if (flag == 1) {
+		return SUCESSO;
+	} else {
+		return CODIGO_INEXISTENTE;
+	}
 }

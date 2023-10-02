@@ -106,24 +106,23 @@ int main() {
 					scanf("%d", &codref);
 					if (incluiAntes(&lt, dado, codref) == SUCESSO) {
 						printf("\nOperacao realizada com SUCESSO!\n");
-					} else if (incluiAntes(&lt, dado, codref) == LISTA_VAZIA) {
-						printf("\nLista vazia! - Sem codigo de referencia.\n");
+					} else if (incluiAntes(&lt, dado, codref) == CODIGO_INEXISTENTE) {
+						printf("\nCodigo de referencia inexistente.\n");
 					} else if (incluiAntes(&lt, dado, codref) == LISTA_CHEIA) {
 						printf("\nLista cheia!\n");
 					} else {
-						printf("\nCodigo de referencia inexistente\n");
+						printf("\nLista vazia! - Sem codigo de referencia.\n");
 					}
 					break;
 
 			case 10:
 					printf("Digite o codigo do nodo a ser exluido:\n");
 					scanf("%d", &codref);
-					if (codref == lt.v[0].cod) {
-					 	excluiDoInicio(&lt, &dado);
-					} else {
-					 	excluiNodo(&lt, codref, &dado);
-					}
-					printf("O nodo exluido foi o com codigo referenciado = %d\n", codref);
+					if (excluiNodo(&lt, codref, &dado) == SUCESSO) {
+					 	printf("O nodo exluido: (%d)= %.2f\n", dado.cod, dado.peso);
+					} else if (excluiNodo(&lt, codref, &dado) == CODIGO_INEXISTENTE){
+					 	printf("\nCodigo de referencia nao encontrado.\n");
+					} 
 					break;
 		}
 	} while (op != 0);
