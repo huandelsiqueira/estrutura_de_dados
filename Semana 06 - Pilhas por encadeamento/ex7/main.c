@@ -17,7 +17,7 @@ int main() {
 		printf("|(1)-Empilha\t\t\t\t|\n");
 		printf("|(2)-Desempilha\t\t\t\t|\n");
 		printf("|(3)-Quantidade de nodos\t\t|\n");
-		printf("|(4)-Exibe situacao da lista\t\t|\n");
+		printf("|(4)-Exibe situacao da pilha\t\t|\n");
 		printf("|(5)-Consulta topo\t\t\t|\n");
 		printf("+---------------------------------------+\n");
 
