@@ -1,5 +1,6 @@
 #ifndef ListaDE_H
 #define ListaDE_H
+#include <stdbool.h>
 
 #define SUCESSO 0
 #define LISTA_VAZIA 1
@@ -30,5 +31,11 @@ int incluiNoInicio(ListaDE *lt, Dado dado);
 void exibe(ListaDE lt);
 int excluiDoInicio(ListaDE *lt, Dado *dado);
 int estaVazia(ListaDE lt);
+int excluiDoFim(ListaDE *lt, Dado *dado);
+int incluiNoFim(ListaDE *lt, Dado dado);
+bool verificaExistencia(ListaDE *lt, Dado dado, int cod);
+int consultaPorCodigo(ListaDE lt, Dado *dado, int cod);
+int incluiDepois(ListaDE *lt, Dado dado, int cod);
+int excluiNodo(ListaDE *lt, Dado *dado, int cod);
 
 #endif

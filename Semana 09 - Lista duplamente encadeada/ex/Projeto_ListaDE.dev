@@ -51,7 +51,7 @@ AutoIncBuildNr=0
 SyncProduct=1
 
 [Unit1]
-FileName=..\..\..\..\..\..\ListaDE.c
+FileName=ListaDE.c
 CompileCpp=0
 Folder=
 Compile=1
@@ -61,7 +61,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit2]
-FileName=..\..\..\..\..\..\mainListaDE.c
+FileName=mainListaDE.c
 CompileCpp=0
 Folder=
 Compile=1
@@ -71,7 +71,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit3]
-FileName=..\..\..\..\..\..\ListaDE.h
+FileName=ListaDE.h
 CompileCpp=0
 Folder=
 Compile=1
